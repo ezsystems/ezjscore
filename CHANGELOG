@@ -1,3 +1,8 @@
+# v1.0.2
+- Fixed bug #15699: eZJSCore: possible function mixup for ezscriptfiles template operator
+  (Merged from trunk rev. 74)
+
+
 # v1.0.1
 
 - Fixed bug: ie6 issue with Y.io.ez
