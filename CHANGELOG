@@ -1,6 +1,8 @@
 # v1.0.2
 - Fixed bug #15699: eZJSCore: possible function mixup for ezscriptfiles template operator
   (Merged from trunk rev. 74)
+- Removed charset attribute from all html tags but script with src attribute (html validation)
+- Deprecated charset parameter on ezcss, ezcss_load and ezcss_requried template operators!
 
 
 # v1.0.1
