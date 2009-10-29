@@ -70,7 +70,7 @@ class ezjscServerFunctionsJs extends ezjscServerFunctions
         }
         return '';
     }
-    
+
     /**
      * Yui2 config as requested by {@link ezjscServerFunctionsJs::yui2()}
      *
@@ -125,7 +125,7 @@ class ezjscServerFunctionsJs extends ezjscServerFunctions
      */
     public static function yui3conf( $args )
     {
-        if ( isset( $args[0] ) )                
+        if ( isset( $args[0] ) )
             return 'var YUI3_config = { \'base\' : \'' . self::getDesignFile( $args[0] ) . '\', modules: {} };';
 
         return 'var YUI3_config = { modules: {} };';
@@ -148,7 +148,7 @@ YUI( YUI3_config ).add('io-ez', function( Y )
     function _ez( callArgs, c )
     {
         callArgs = callArgs.join !== undefined ? callArgs.join( _seperator ) : callArgs;
-        var url = _serverUrl + 'call/' + encodeURIComponent( callArgs );
+        var url = _serverUrl + 'call/';
 
         // force POST method
         if ( c === undefined )
@@ -156,7 +156,7 @@ YUI( YUI3_config ).add('io-ez', function( Y )
         else
             c = Y.merge( {on:{}, data: '', headers: {}}, c, {method: 'POST'} );
 
-        // append function arguments as post param for encoding safty
+        // append function arguments as post param for encoding safety
         c.data += ( c.data !== '' ? '&' : '' ) + 'ezjscServer_function_arguments=' + callArgs;
 
         // force json transport
@@ -250,7 +250,7 @@ YUI( YUI3_config ).add('io-ez', function( Y )
     function _ez( callArgs, post, callBack )
     {
         callArgs = callArgs.join !== undefined ? callArgs.join( _seperator ) : callArgs;
-        var url = _serverUrl + 'call/' + encodeURIComponent( callArgs );
+        var url = _serverUrl + 'call/';
         post = post === undefined ? {} : post;
         post['ezjscServer_function_arguments'] = callArgs;
 
@@ -258,14 +258,14 @@ YUI( YUI3_config ).add('io-ez', function( Y )
     };
     _ez.url = _serverUrl;
     _ez.seperator = _seperator;
-    $.ez = _ez; 
+    $.ez = _ez;
 
     // Method version, for loading response into elements
     // NB: Does not use json (not possible with .load), so ezjscore/call will return string
     function _ezLoad( callArgs, post, selector, callBack )
     {
         callArgs = callArgs.join !== undefined ? callArgs.join( _seperator ) : callArgs;
-        var url = _serverUrl + 'call/' + encodeURIComponent( callArgs );
+        var url = _serverUrl + 'call/';
         post = post === undefined ? {} : post;
         post['ezjscServer_function_arguments'] = callArgs;
 
@@ -295,7 +295,7 @@ YUI( YUI3_config ).add('io-ez', function( Y )
 
     /**
      * Internal function to get current index dir
-     * 
+     *
      * @return string
      */
     protected static function getIndexDir()
@@ -310,7 +310,7 @@ YUI( YUI3_config ).add('io-ez', function( Y )
 
     /**
      * Internal function to get current index dir
-     * 
+     *
      * @return string
      */
     protected static function getDesignFile( $file )
