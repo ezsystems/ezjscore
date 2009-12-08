@@ -10,6 +10,8 @@
   (Merged from trunk rev. 85)
 - Add missing include_once('kernel/common/i18n.php'); in index_ajax.php
   (Merged from trunk rev. 89)
+- Make sure admin user has access to /call even if PolicyOmitList/AnonymousAccessList is commented
+  (Merged from trunk rev. 91)
 
 
 # v1.0.1
