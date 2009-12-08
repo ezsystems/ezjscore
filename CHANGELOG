@@ -8,6 +8,8 @@
 - Only use POST parameters for ezjscore/call parameters to avoid reaching url limit and 
   logging parameters in wwwserver logs
   (Merged from trunk rev. 85)
+- Add missing include_once('kernel/common/i18n.php'); in index_ajax.php
+  (Merged from trunk rev. 89)
 
 
 # v1.0.1
