@@ -14,6 +14,8 @@
   (Merged from trunk rev. 91)
 - Add html comments around inline css and javascript
   (Merged from trunk rev. 93)
+- Add support for c.arguments on Y.io.ez() like Y.io() has
+  (Merged from trunk rev. 95)
 
 
 # v1.0.1
