@@ -12,6 +12,8 @@
   (Merged from trunk rev. 89)
 - Make sure admin user has access to /call even if PolicyOmitList/AnonymousAccessList is commented
   (Merged from trunk rev. 91)
+- Add html comments around inline css and javascript
+  (Merged from trunk rev. 93)
 
 
 # v1.0.1
