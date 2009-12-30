@@ -18,6 +18,8 @@
   (Merged from trunk rev. 95)
 - Fixed ezjscore/run issue with eZ Publish 4.0.0 / 4.0.1 on eZURI::instance()
   (Merged from trunk rev. 100)
+- Disabled language attribute by default on ezscript() for xhtml strict / xhtml1.1 / html5 validation
+  (Merged from trunk rev. 106)
 
 
 # v1.0.1
