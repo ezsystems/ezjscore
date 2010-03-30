@@ -1,4 +1,12 @@
+
+# v1.1.1
+
+- Fixed bug #16393: TC-36 - eZFlow + eZFind show-facets and enable-spellchecker always enabled
+  (merged from trunk rev. 167)
+
+
 # v1.1.0rc1
+
 - Fixed bug #16456: ezjscore not cluster aware?
 
 # v1.1.0beta1
@@ -12,8 +20,6 @@
 - Add support for serializeArray() format as post parameter on jQuery.ez
 - Updated jQuery to 1.4.2
 - Changed back to using ajax.googleapis.com for jQuery like 1.0, reported in #016229
-
-
 
 # v1.1.0alpha1
 
