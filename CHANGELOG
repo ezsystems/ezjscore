@@ -3,6 +3,8 @@
 
 - Fixed bug #16393: TC-36 - eZFlow + eZFind show-facets and enable-spellchecker always enabled
   (merged from trunk rev. 167)
+- Fixed bug #16726: Src for original image in "Insert image" has a pipe ("|") at the end
+  (merged from trunk rev. 179)
 
 
 # v1.1.0rc1
