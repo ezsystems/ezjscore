@@ -5,6 +5,10 @@
   (merged from trunk rev. 167)
 - Fixed bug #16726: Src for original image in "Insert image" has a pipe ("|") at the end
   (merged from trunk rev. 179)
+- Fixed bug #16669: wrong content-type header for packed js/css files using clustering
+  (merged from trunk rev. 184)
+- Fixed bug #16635: ezjscore: @charset "utf-8"; is not stripped
+  (merged from trunk rev. 191)
 
 
 # v1.1.0rc1

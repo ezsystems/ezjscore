@@ -77,7 +77,8 @@ class ezjscPacker
         $http = eZHTTPTool::instance();
         $useFullUrl = ( isset( $http->UseFullUrl ) && $http->UseFullUrl );
         $packedFiles = ezjscPacker::packFiles( $scriptFiles, 'javascript/', '.js', $packLevel, $wwwInCacheHash );
-        if ( $charset ) $charset = " charset=\"$charset\"";
+        if ( $charset )
+            $charset = " charset=\"$charset\"";
         foreach ( $packedFiles as $packedFile )
         {
             // Is this a js file or js content?
@@ -389,7 +390,8 @@ class ezjscPacker
 
         // Merge file content and create new cache file
         $content = '';
-        foreach( $validFiles as $file)
+        $isCSS = strpos( $fileExtension, '.css' ) !== false;
+        foreach( $validFiles as $i => $file)
         {
             // if this is a js / css generator, call to get content
             if ( $file instanceOf ezjscServerRouter )
@@ -411,10 +413,12 @@ class ezjscPacker
                 continue;
             }
 
-            // we need to fix relative background image paths if this is a css file
-            if ( strpos($fileExtension, '.css') !== false )
+            if ( $isCSS )
             {
+                // We need to fix relative background image paths if this is a css file
                 $fileContent = ezjscPacker::fixImgPaths( $fileContent, $file );
+                // Remove @charset if this is not the first file (some browsers will ignore css after a second occurance of this)
+                if ( $i ) $fileContent = preg_replace('/^@charset[^;]+;/i', '', $fileContent);
             }
 
             $content .= "/* start: $file */\r\n";
@@ -425,14 +429,14 @@ class ezjscPacker
         // Pack the file to save bandwidth
         if ( $packLevel > 1 )
         {
-            if ( strpos($fileExtension, '.css') !== false )
+            if ( $isCSS )
                 $content = ezjscPacker::optimizeCSS( $content, $packLevel );
             else
                 $content = ezjscPacker::optimizeScript( $content, $packLevel );
         }
 
         // save file and return path
-        $clusterFileHandler->fileStoreContents( $cachePath, $content );
+        $clusterFileHandler->fileStoreContents( $cachePath, $content, 'ezjscore', $isCSS ? 'text/css' : 'text/javascript' );
         $httpFiles[] = $packerInfo['custom_host'] . $packerInfo['www_dir'] . $cachePath;
 
         return $httpFiles;
@@ -551,7 +555,7 @@ class ezjscPacker
     static function serverCallHelper( $strServerCall )
     {
         $server = ezjscServerRouter::getInstance( $strServerCall );
-        if ( !$server instanceOf ezjscServerRouter )
+        if ( !$server instanceof ezjscServerRouter )
         {
             eZDebug::writeError( 'Not a valid ezjscServer function: ' . $strServerCall, __METHOD__ );
             return null;
