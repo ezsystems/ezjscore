@@ -9,6 +9,8 @@
   (merged from trunk rev. 184)
 - Fixed bug #16635: ezjscore: @charset "utf-8"; is not stripped
   (merged from trunk rev. 191)
+- Fixed bug #16831: ezjscore create one js cache file for all siteaccess (patch)
+  (merged from trunk rev. 193 & 194)
 
 
 # v1.1.0rc1
