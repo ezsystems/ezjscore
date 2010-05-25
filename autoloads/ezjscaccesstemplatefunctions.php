@@ -92,6 +92,7 @@ class ezjscAccessTemplateFunctions
      * @param string $module
      * @param string $function
      * @param array|null $limitations A hash of limitation keys and values
+     * @param bool Lets you get some additional debug information if set to true, useful while developing.
      * @return bool
      */
     public static function hasAccessToLimitation( $module, $function, $limitations = null, $debug = false )
