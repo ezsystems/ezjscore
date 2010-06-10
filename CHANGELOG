@@ -11,6 +11,8 @@
   (merged from trunk rev. 191)
 - Fixed bug #16831: ezjscore create one js cache file for all siteaccess (patch)
   (merged from trunk rev. 193 & 194)
+- Fixed bug #016900: [patch] eZJSCore: clearing Packer cache in DB cluster
+  (merged from trunk rev. 205 & 206 & 207)
 
 
 # v1.1.0rc1
