@@ -156,7 +156,7 @@ $access = accessType( $uri,
 $access = changeAccess( $access );
 
 // Check for new extension loaded by siteaccess ( disabled for performance reasons )
-//eZExtension::activateExtensions( 'access' );
+eZExtension::activateExtensions( 'access' );
 
 // check module name
 $moduleName = $uri->element();
