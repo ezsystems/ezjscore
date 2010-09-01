@@ -13,6 +13,8 @@
   (merged from trunk rev. 193 & 194)
 - Fixed bug #016900: [patch] eZJSCore: clearing Packer cache in DB cluster
   (merged from trunk rev. 205 & 206 & 207)
+- Fix #017079: ezoe: IE8 Insert MEDIA/IMAGE browse: Tree Nodes not shown
+  (merged from trunk rev. 231)
 
 
 # v1.1.0rc1
