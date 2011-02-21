@@ -91,7 +91,7 @@ class ezjscPacker
             }
             else
             {
-                $ret .=  $packedFile ? "<script$lang type=\"$type\">\r\n$packedFile\r\n</script>\r\n" : '';
+                $ret .=  $packedFile ? "<script$lang type=\"$type\">\r\n//<![CDATA[\r\n$packedFile\r\n//]]>\r\n</script>\r\n" : '';
             }
         }
         return $ret;
@@ -128,7 +128,7 @@ class ezjscPacker
             }
             else
             {
-                $ret .= $packedFile ? "<style type=\"$type\"$media>\r\n$packedFile\r\n</style>\r\n" : '';
+                $ret .= $packedFile ? "<style type=\"$type\"$media>\r\n//<![CDATA[\r\n$packedFile\r\n//]]>\r\n</style>\r\n" : '';
             }
         }
         return $ret;
