@@ -39,6 +39,11 @@ class ezjscCssOptimizer
      */
     public static function optimize( $css, $packLevel = 2 )
     {
+        if ($packLevel < 2)
+        {
+            return $css;
+        }
+
         // Normalize line feeds
         $css = str_replace( array( "\r\n", "\r" ), "\n", $css );
 

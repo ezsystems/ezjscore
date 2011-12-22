@@ -39,6 +39,11 @@ class ezjscJavascriptOptimizer
      */
     public static function optimize( $script, $packLevel = 2 )
     {
+        if ($packLevel < 2)
+        {
+            return $script;
+        }
+
         // Normalize line feeds
         $script = str_replace( array( "\r\n", "\r" ), "\n", $script );
 

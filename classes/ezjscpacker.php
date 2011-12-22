@@ -458,13 +458,7 @@ class ezjscPacker
         }
 
         // Pack all files to save bandwidth
-        if ( $data['pack_level'] > 1 )
-        {
-            foreach( $ezjscINI->variable( 'eZJSCore', $isCSS ? 'CssOptimizer' : 'JavaScriptOptimizer' ) as $optimizer )
-            {
-                $content = call_user_func( array( $optimizer, 'optimize' ), $content, $data['pack_level'] );
-            }
-        }
+        $content = ezpEvent::getInstance()->filter( $isCSS ? 'response/outputcss' : 'response/outputjs', $content, $data['pack_level'] );
 
         // Save cache file and return path
         $clusterFileHandler->fileStoreContents( $data['cache_path'], $content, 'ezjscore', $isCSS ? 'text/css' : 'text/javascript' );
