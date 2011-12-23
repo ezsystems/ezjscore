@@ -34,7 +34,7 @@ class ezjscCssOptimizer
      * 'compress' css code by removing whitespace
      *
      * @param string $css Concated Css string
-     * @param int $packLevel Level of packing, values: 2-3
+     * @param int $packLevel Level of packing, values: 1-3
      * @return string
      */
     public static function optimize( $css, $packLevel = 2 )

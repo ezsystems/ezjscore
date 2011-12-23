@@ -458,7 +458,7 @@ class ezjscPacker
         }
 
         // Pack all files to save bandwidth
-        $content = ezpEvent::getInstance()->filter( $isCSS ? 'response/outputcss' : 'response/outputjs', $content, $data['pack_level'] );
+        $content = ezpEvent::getInstance()->filter( $isCSS ? 'response/output/css' : 'response/output/javascript', $content, $data['pack_level'] );
 
         // Save cache file and return path
         $clusterFileHandler->fileStoreContents( $data['cache_path'], $content, 'ezjscore', $isCSS ? 'text/css' : 'text/javascript' );

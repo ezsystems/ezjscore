@@ -1,8 +1,8 @@
 <?php /* #?ini charset="utf-8"?
 
 [Event]
-Listeners[]=response/outputcss@ezjscCssOptimizer::optimize
-Listeners[]=response/outputjs@ezjscJavascriptOptimizer::optimize
+Listeners[css_optimizer]=response/output/css@ezjscCssOptimizer::optimize
+Listeners[javascript_optimizer]=response/output/javascript@ezjscJavascriptOptimizer::optimize
 
 [TemplateSettings]
 ExtensionAutoloadPath[]=ezjscore

@@ -34,7 +34,7 @@ class ezjscJavascriptOptimizer
      * 'compress' javascript code by removing whitespace
      *
      * @param string $script Concated JavaScript string
-     * @param int $packLevel Level of packing, values: 2-3
+     * @param int $packLevel Level of packing, values: 1-3
      * @return string
      */
     public static function optimize( $script, $packLevel = 2 )
