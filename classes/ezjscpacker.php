@@ -458,7 +458,7 @@ class ezjscPacker
         }
 
         // Pack all files to save bandwidth
-        $content = ezpEvent::getInstance()->filter( ( $isCSS ? 'response/output/css' : 'response/output/javascript' ),
+        $content = ezpEvent::getInstance()->filter( ( $isCSS ? 'optimize/css' : 'optimize/javascript' ),
                                                     $content,
                                                     $data['pack_level'] );
 
