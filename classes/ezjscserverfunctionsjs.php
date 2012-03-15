@@ -127,14 +127,31 @@ class ezjscServerFunctionsJs extends ezjscServerFunctions
      */
     public static function yui3conf( $args )
     {
-        $options = eZINI::instance( 'ezjscore.ini' )->variable( 'YUI3', 'LoaderOptions' );
+        $ini = eZINI::instance( 'ezjscore.ini' );
+        $options = $ini->variable( 'YUI3', 'LoaderOptions' );
+
+        if ( !isset( $options['combine'] ) || $options['combine'] != 'false' )
+        {
+            $options['combine'] = true;
+        }
+        else
+        {
+            $options['combine'] = false;
+        }
 
         if ( isset( $args[0] ) )
         {
+            // local loading
             $options['base'] = self::getDesignFile( $args[0] );
-            if ( !isset( $options['combine'] ) )
+            if ( $options['combine'] && !isset( $options['comboBase'] ) )
             {
-                $options['combine'] = false;
+                $options['comboBase'] = $ini->variable(
+                    'eZJSCore', 'LocalYUIComboBase'
+                );
+                if ( strpos( $options['comboBase'], 'http' ) !== 0 )
+                {
+                    $options['comboBase'] = eZSys::wwwDir() . '/' . $options['comboBase'];
+                }
             }
         }
         if ( !isset( $options['modules'] ) )

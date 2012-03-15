@@ -1,0 +1,38 @@
+<?php
+/*
+   WHAT THIS FILE IS ABOUT - READ CAREFULLY
+   ----------------------------------------
+   This file contains a documented list of the few configuration points to combo.php
+   available from config.combo.php. The proposed default values below are meant
+   to be the most optimized ones, or meaningful examples of what can be achieved.
+
+   In order to have the present settings taken into account, you will need to
+   rename this file into config.combo.php, and keep it placed at the root of ezjscore
+   where config.combo.php-RECOMMENDED is currently placed.
+*/
+
+/**
+ * Path the YUI files from ezsjcore
+ */
+define( 'COMBO_YUI_BASE', 'design/standard/lib/yui/' );
+
+/**
+ * debug flag for the combo.php script. If enabled, combo.php will
+ * output some informations regarding the APC cache handling in the
+ * header X-Combo-Debug and if a file is not found, it will append a
+ * comment like /* ERROR: foo/bar.js does not exist */ in its output.
+ */
+define( 'COMBO_DEBUG', false );
+
+/**
+ * Whether to enable or not the APC cache to store the results of each
+ * combo.php request. By defaut, this settings is enabled if the APC related
+ * functions are available. Set to false, to disable in every case
+ */
+define( 'COMBO_APC_CACHE', function_exists( 'apc_fetch' ) );
+
+/**
+ * TTL to set in the APC cache, if it's enabled. 0 means that the cache
+ * won't expire.
+ */
+define( 'COMBO_APC_TTL', 0 );
