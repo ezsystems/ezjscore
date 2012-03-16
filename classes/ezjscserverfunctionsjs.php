@@ -71,6 +71,47 @@ class ezjscServerFunctionsJs extends ezjscServerFunctions
         return '';
     }
 
+
+    /**
+     * Creates the JavaScript configuration for YUI2 or YUI3
+     * 
+     * @param array $args First value is base bath if set
+     * @param string $type "YUI2" or "YUI3"
+     * @param array $defaultOptions
+     * @return string
+     */
+    protected static function yuiconfig( $args, $type, $defaultOptions = array() )
+    {
+        $ini = eZINI::instance( 'ezjscore.ini' );
+        $options = $defaultOptions + $ini->variable( $type, 'LoaderOptions' );
+        // transform "true"/"false" in boolean
+        foreach ( $options as $k => $val )
+        {
+            if ( $val === 'false' )
+                $options[$k] = false;
+            else if ( $val === 'true' )
+                $options[$k] = true;
+        } 
+
+        if ( isset( $args[0] ) )
+        {
+            // local loading
+            $options['base'] = self::getDesignFile( $args[0] );
+            if ( $options['combine'] && !isset( $options['comboBase'] ) )
+            {
+                $options['comboBase'] = $ini->variable(
+                    'eZJSCore', 'LocalYUIComboBase'
+                );
+                if ( strpos( $options['comboBase'], 'http' ) !== 0 )
+                {
+                    $options['comboBase'] = eZSys::wwwDir() . '/' . $options['comboBase'];
+                }
+            }
+        }
+        return 'var ' . $type . '_config = ' . json_encode( $options ) . ";\n";
+
+    }
+
     /**
      * Yui2 config as requested by {@link ezjscServerFunctionsJs::yui2()}
      *
@@ -79,20 +120,8 @@ class ezjscServerFunctionsJs extends ezjscServerFunctions
      */
     public static function yui2conf( $args )
     {
-        if ( isset( $args[0] ) )
-        {
-            return 'var YUI2_config = {
-                base: \'' . self::getDesignFile( $args[0] ) . '\',
-                loadOptional: true
-            };
-            var YUILoader =  new YAHOO.util.YUILoader(YUI2_config);';
-        }
-
-        return 'var YUI2_config = {
-            loadOptional: true,
-            combine: true
-        };
-        var YUILoader =  new YAHOO.util.YUILoader(YUI2_config);';
+        return self::yuiconfig( $args, 'YUI2' ) .
+            'var YUILoader =  new YAHOO.util.YUILoader(YUI2_config);';
     }
 
     /**
@@ -127,39 +156,9 @@ class ezjscServerFunctionsJs extends ezjscServerFunctions
      */
     public static function yui3conf( $args )
     {
-        $ini = eZINI::instance( 'ezjscore.ini' );
-        $options = $ini->variable( 'YUI3', 'LoaderOptions' );
-
-        if ( !isset( $options['combine'] ) || $options['combine'] != 'false' )
-        {
-            $options['combine'] = true;
-        }
-        else
-        {
-            $options['combine'] = false;
-        }
-
-        if ( isset( $args[0] ) )
-        {
-            // local loading
-            $options['base'] = self::getDesignFile( $args[0] );
-            if ( $options['combine'] && !isset( $options['comboBase'] ) )
-            {
-                $options['comboBase'] = $ini->variable(
-                    'eZJSCore', 'LocalYUIComboBase'
-                );
-                if ( strpos( $options['comboBase'], 'http' ) !== 0 )
-                {
-                    $options['comboBase'] = eZSys::wwwDir() . '/' . $options['comboBase'];
-                }
-            }
-        }
-        if ( !isset( $options['modules'] ) )
-        {
-            $options['modules'] = new stdClass;
-        }
-
-        return 'var YUI3_config = ' . json_encode( $options ) . ';';
+        return self::yuiconfig(
+            $args, 'YUI3', array( 'modules' => new stdClass )
+        );
     }
 
     /**
