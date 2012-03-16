@@ -20,7 +20,7 @@ define( 'COMBO_YUI_BASE', 'design/standard/lib/yui/' );
  * debug flag for the combo.php script. If enabled, combo.php will
  * output some informations regarding the APC cache handling in the
  * header X-Combo-Debug and if a file is not found, it will append a
- * comment like /* ERROR: foo/bar.js does not exist */ in its output.
+ * comment like ERROR: foo/bar.js does not exist in its output.
  */
 define( 'COMBO_DEBUG', false );
 
