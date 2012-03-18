@@ -74,7 +74,7 @@ if ( COMBO_APC_CACHE )
 }
 
 $code = '';
-$error = false;
+$errors = array();
 foreach ( $yuiFiles as $f )
 {
     $file = COMBO_YUI_BASE . str_replace(
@@ -86,16 +86,19 @@ foreach ( $yuiFiles as $f )
     }
     else if ( COMBO_DEBUG === true )
     {
-        $error = true;
-        $code .= "/* ERROR: {$file} does not exist */";
+        $errors[] = $f;
     }
 }
-if ( $error !== true && COMBO_APC_CACHE )
+if ( empty( $errors ) && COMBO_APC_CACHE )
 {
     if ( COMBO_DEBUG === true )
     {
         header( "X-Combo-Debug: stored in cache; key=$cacheKey" );
     }
     apc_store( $cacheKey, $code, COMBO_APC_TTL );
+}
+else if ( !empty( $errors ) )
+{
+    header( "X-Combo-Debug: errors on files " . implode( ', ', $errors ) );
 }
 echo $code;
