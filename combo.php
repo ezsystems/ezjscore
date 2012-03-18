@@ -77,7 +77,9 @@ $code = '';
 $error = false;
 foreach ( $yuiFiles as $f )
 {
-    $file = COMBO_YUI_BASE . str_replace( '../', '', $f );
+    $file = COMBO_YUI_BASE . str_replace(
+        '\\', '/', str_replace( '../', '', $f )
+    );
     if ( file_exists( $file ) )
     {
         $code .= file_get_contents( $file );
