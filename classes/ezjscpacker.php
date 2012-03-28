@@ -299,9 +299,10 @@ class ezjscPacker
                    $data['www'][] = $server->call( $fileArray );
                 }
                 // Always generate functions with file_time=-1 (they modify $fileArray )
+                // or they return content that should not be part of the cache file
                 else if ( $fileTime === -1 )
                 {
-                    $data['locale'][] = $server->call( $fileArray );
+                    $data['http'][] = $server->call( $fileArray );
                 }
                 else
                 {
