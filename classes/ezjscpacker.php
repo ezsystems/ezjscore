@@ -268,6 +268,8 @@ class ezjscPacker
             $data['cache_name'] = $data['index_dir'];
         }
 
+        $originalFileArray = $fileArray;
+
         while ( !empty( $fileArray ) )
         {
             $file = array_shift( $fileArray );
@@ -381,9 +383,15 @@ class ezjscPacker
             // if packing is disabled, return the valid paths / content we have generated
             return array_merge( $data['http'], $data['www'] );
         }
+        else if ( empty($data['locale']) && !empty($data['http']) )
+        {
+            self::$log[] = $data;
+            // return if there are only external scripts and no local files to cache
+            return $data['http'];
+        }
         else if ( !$data['locale'] )
         {
-            eZDebug::writeWarning( "Could not find any files: " . var_export( $fileArray, true ), __METHOD__ );
+            eZDebug::writeWarning( "Could not find any files: " . var_export( $originalFileArray, true ), __METHOD__ );
             return array();
         }
         else if ( !isset( $data['locale'][1] ) && $data['locale'][0] && !$data['locale'][0] instanceof ezjscServerRouter )
@@ -599,7 +607,9 @@ class ezjscPacker
             if ( !isset( $data['http'][$i+1] ) && $data['cache_path'] !== '' )
                 break;
 
-            if ( $stats !== '' )
+            if ( !$file )
+                continue;
+            elseif ( $stats !== '' )
                 $stats .= '<br />';
 
             $stats .= "<span class='debuginfo' title='Served directly from external source(not part of cache file)'>{$file}</span>";
