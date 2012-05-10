@@ -244,6 +244,9 @@ class ezjscPacker
             'index_dir'      => self::getIndexDir(),
             'custom_host'    => ( isset( $customHosts[$fileExtension] ) ? $customHosts[$fileExtension] : '' ),
         );
+        
+        // www_dir should be set in the returned uri only if cache_dir is not absolute
+        $output_www_dir = ( $data['cache_dir'][0] == '/' ? '' : $data['www_dir'] );
 
         // Only pack files if Packer is enabled and if not set DevelopmentMode is disabled
         if ( $ezjscINI->hasVariable( 'eZJSCore', 'Packer' ) )
@@ -400,7 +403,7 @@ class ezjscPacker
             $clusterFileHandler = eZClusterFileHandler::instance( $data['cache_path'] );
             if ( $clusterFileHandler->fileExists( $data['cache_path'] ) )
             {
-                $data['http'][] = $data['custom_host'] . $data['www_dir'] . $data['cache_path'];
+                $data['http'][] = $data['custom_host'] . $output_www_dir . $data['cache_path'];
                 self::$log[] = $data;
                 return $data['http'];
             }
@@ -413,7 +416,7 @@ class ezjscPacker
             // Check last modified time and return path to cache file if valid
             if ( $clusterFileHandler->fileExists( $data['cache_path'] ) && $data['last_modified'] <= $clusterFileHandler->mtime( $data['cache_path'] ) )
             {
-                $data['http'][] = $data['custom_host'] . $data['www_dir'] . $data['cache_path'];
+                $data['http'][] = $data['custom_host'] . $output_www_dir . $data['cache_path'];
                 self::$log[] = $data;
                 return $data['http'];
             }
@@ -468,7 +471,7 @@ class ezjscPacker
 
         // Save cache file and return path
         $clusterFileHandler->fileStoreContents( $data['cache_path'], $content, 'ezjscore', $isCSS ? 'text/css' : 'text/javascript' );
-        $data['http'][] = $data['custom_host'] . $data['www_dir'] . $data['cache_path'];
+        $data['http'][] = $data['custom_host'] . $output_www_dir . $data['cache_path'];
 
         self::$log[] = $data;
         return $data['http'];
