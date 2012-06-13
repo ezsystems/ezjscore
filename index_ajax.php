@@ -159,6 +159,10 @@ $access = changeAccess( $access );
 // Check for new extension loaded by siteaccess
 eZExtension::activateExtensions( 'access' );
 
+// Now that all extensions are activated and siteaccess has been changed, reset
+// all eZINI instances as they may not take into account siteaccess specific settings.
+eZINI::resetAllInstances( false );
+
 // check module name
 $moduleName = $uri->element();
 if ( strpos( $moduleName, 'index.php' ) !== false  )
