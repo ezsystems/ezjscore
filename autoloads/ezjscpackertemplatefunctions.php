@@ -47,6 +47,7 @@
  *                                   [, int $pack_level=3]]]]])
  *
  * ezscriptfiles( array|string $scripts[, int $pack_level=2[, bool $ignore_loaded=false]] )
+ * ezscriptfiles_load( array|string $scripts[, int $pack_level=2] )
  * ezcssfiles( array|string $css_files[, int $pack_level=3[, bool $ignore_loaded=false]] )
  *
  * These are alternatives to ezscript and ezcss that return array of files to be included
@@ -65,7 +66,7 @@
  * You can also use css / js generators to generate content dynamically.
  * This is better explained in ezjscore.ini[Packer_<function>]
  *
- * Brief (ezscript|ezcss)_require + (ezscript|ezcss)_load:
+ * Brief (ezscript|ezcss)_require + (ezscript|ezscriptfiles|ezcss)_load:
  * Lets you do on demand loading of javscript and css files instead of loading
  * them on every page using JavaScriptList & CSSFileList witch tends to also
  * load files no matter what design you use.
@@ -76,7 +77,7 @@
  * by (ezscript|ezcss)_load. If already loaded, then executed right away just like
  * calling (ezscript|ezcss) operators.
  *
- * (ezscript|ezcss)_load : Packs the files you (optionally) pass to it + the files marked
+ * (ezscript|ezscriptfiles|ezcss)_load : Packs the files you (optionally) pass to it + the files marked
  * to be loaded by (ezscript|ezcss)_require.
  */
 
