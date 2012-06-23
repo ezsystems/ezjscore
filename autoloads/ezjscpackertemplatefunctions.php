@@ -90,7 +90,7 @@ class ezjscPackerTemplateFunctions
 
     function operatorList()
     {
-        return array( 'ezscript', 'ezscript_require', 'ezscript_load', 'ezscriptfiles', 'ezcss', 'ezcss_require', 'ezcss_load', 'ezcssfiles'  );
+        return array( 'ezscript', 'ezscript_require', 'ezscript_load', 'ezscriptfiles', 'ezscriptfiles_load', 'ezcss', 'ezcss_require', 'ezcss_load', 'ezcssfiles'  );
     }
 
     function namedParameterPerOperator()
@@ -159,6 +159,9 @@ class ezjscPackerTemplateFunctions
             $def['ezscript_require'] = $def['ezscript'];
             $def['ezscript_load'] = $def['ezscript'];
             $def['ezscript_load']['script_array']['required'] = false;
+            $def['ezscriptfiles_load'] = $def['ezscriptfiles'];
+            $def['ezscriptfiles_load']['script_array']['required'] = false;
+            unset($def['ezscriptfiles_load']['ignore_loaded']);
 
             $def['ezcss_require'] = $def['ezcss'];
             $def['ezcss_load'] = $def['ezcss'];
@@ -233,6 +236,21 @@ class ezjscPackerTemplateFunctions
                     $ret = ezjscPacker::buildJavascriptFiles( $diff, $namedParameters['pack_level'] );
                 }
             } break;
+            case 'ezscriptfiles_load':
+            	{
+            		if ( !isset( self::$loaded['js_files'] ) )
+            		{
+            			$depend = self::setPersistentArray( 'js_files', self::flattenArray( $namedParameters['script_array'] ), $tpl, false, true );
+            			$ret = ezjscPacker::buildJavascriptFiles( $depend, $namedParameters['pack_level'] );
+            			self::$loaded['js_files'] = true;
+            			break;
+            		}// let 'ezscript' handle loaded calls
+            		elseif ( $operatorName === 'ezscript_load' )
+            		{
+            			$namedParameters['script_array'] = self::setPersistentArray( 'js_files', self::flattenArray( $namedParameters['script_array'] ), $tpl, true, true, true );
+            		}
+            		
+            	} break;
             case 'ezcss_load':
             {
                 if ( !isset( self::$loaded['css_files'] ) )
