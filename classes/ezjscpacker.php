@@ -228,6 +228,7 @@ class ezjscPacker
         $ezjscINI    = eZINI::instance( 'ezjscore.ini' );
         $bases       = eZTemplateDesignResource::allDesignBases();
         $customHosts = $ezjscINI->variable( 'Packer', 'CustomHosts' );
+        $realFileExtension = substr( strrchr( $fileExtension, '.' ), 0 );
         $data = array(
             'http'           => array(),
             'www'            => array(),
@@ -242,7 +243,7 @@ class ezjscPacker
             'cache_dir'      => self::getCacheDir(),
             'www_dir'        => self::getWwwDir(),
             'index_dir'      => self::getIndexDir(),
-            'custom_host'    => ( isset( $customHosts[$fileExtension] ) ? $customHosts[$fileExtension] : '' ),
+            'custom_host'    => ( isset( $customHosts[$realFileExtension] ) ? $customHosts[$realFileExtension] : '' ),
         );
 
         // Only pack files if Packer is enabled and if not set DevelopmentMode is disabled
