@@ -458,6 +458,8 @@ class ezjscPacker
         }
 
         // Pack all files to save bandwidth
+
+        // CssOptimizer and JavascriptOptimizer are deprecated as of 4.7...
         if ( $data['pack_level'] > 1 )
         {
             foreach( $ezjscINI->variable( 'eZJSCore', $isCSS ? 'CssOptimizer' : 'JavaScriptOptimizer' ) as $optimizer )
@@ -465,6 +467,11 @@ class ezjscPacker
                 $content = call_user_func( array( $optimizer, 'optimize' ), $content, $data['pack_level'] );
             }
         }
+
+        // ... to the benefit of Event logic
+        $content = ezpEvent::getInstance()->filter( ( $isCSS ? 'optimize/css' : 'optimize/javascript' ),
+                                                    $content,
+                                                    $data['pack_level'] );
 
         // Save cache file and return path
         $clusterFileHandler->fileStoreContents( $data['cache_path'], $content, 'ezjscore', $isCSS ? 'text/css' : 'text/javascript' );
